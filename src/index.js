@@ -8,7 +8,24 @@ module.exports = (server, options) => {
   const router = express.Router();
 
   router.get('/info', (req, res) => {
-    r.getInfo().then(data => res.json(data));
+    Promise.all([
+      r.getInfo(),
+      r.getUser('me'),
+    ])
+    .then(([info, user]) => {
+      res.json({
+        guildCount: info.guilds.size,
+        userCount: info.users.size,
+        channelCount: info.channels.size,
+        description: '',
+        user,
+        presences: [],
+        website: '',
+        prefixes: [],
+        oauth: '',
+        guild: '',
+      });
+    });
   });
 
   return router;

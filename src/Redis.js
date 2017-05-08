@@ -9,6 +9,10 @@ class Redis {
     this.client = redis.createClient(options);
   }
 
+  getUser(id) {
+    return this.client.hgetallAsync(`user:${id}`);
+  }
+
   getInfo() {
     return Promise.all([
       this.getUsers(),
