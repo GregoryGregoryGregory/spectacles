@@ -1,12 +1,14 @@
 const express = require('express');
-const ws = require('ws');
+const socket = require('./socket');
+const Redis = require('./Redis');
 
-module.exports = (server) => {
+module.exports = (server, options) => {
+  socket(server);
+  const r = new Redis(options);
   const router = express.Router();
-  const wss = new ws.Server({ server });
 
-  wss.on('connection', () => {
-    //
+  router.get('/info', (req, res) => {
+    r.getInfo().then(data => res.json(data));
   });
 
   return router;
