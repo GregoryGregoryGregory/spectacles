@@ -1,24 +1,26 @@
 const express = require('express');
 const socket = require('./socket');
-const Redis = require('./Redis');
+const redis = require('./redis');
 
 module.exports = (server, options) => {
   socket(server);
-  const r = new Redis(options);
+  const r = redis(options);
   const router = express.Router();
 
   router.get('/info', (req, res) => {
     Promise.all([
-      r.getInfo(),
-      r.getUser('me'),
+      r.scardAsync('user'),
+      r.scardAsync('guild'),
+      r.scardAsync('channel'),
+      r.getAsync('me'),
     ])
-    .then(([info, user]) => {
+    .then(([user, guild, channel, me]) => {
       res.json({
-        guildCount: info.guilds.size,
-        userCount: info.users.size,
-        channelCount: info.channels.size,
+        guildCount: guild,
+        userCount: user,
+        channelCount: channel,
         description: '',
-        user,
+        me,
         presences: [],
         website: '',
         prefixes: [],
