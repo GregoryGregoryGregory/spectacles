@@ -7,6 +7,11 @@ module.exports = (server, options) => {
   const r = redis(options);
   const router = express.Router();
 
+  router.use((req, res, next) => {
+    if (!req.app.get('config')) req.app.set('config', options);
+    next();
+  });
+
   router.get('/info', (req, res) => {
     Promise.all([
       r.scardAsync('user'),

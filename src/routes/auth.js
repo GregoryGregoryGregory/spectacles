@@ -1,5 +1,6 @@
 const express = require('express');
 const simpleOauth2 = require('simple-oauth2');
+const jwt = require('jsonwebtoken');
 
 module.exports = (options = {}) => {
   const router = express.Router();
@@ -29,12 +30,18 @@ module.exports = (options = {}) => {
   router.get('/callback', (req, res) => {
     oauth2.authorizationCode.getToken({ code: req.body.code }, (err, result) => {
       if (err) {
-        res.status(401).send('Authorization failed.');
+        res.status(400).send('Authorization failed.');
         return;
       }
 
-      const token = oauth2.accessToken.create(result);
-      res.status(200).send(token);
+      jwt.sign(result, options.jwtKey, { expiresIn: result.expires_in }, (error, token) => {
+        if (error) {
+          res.status(500).send('Could not create a JWT.');
+          return;
+        }
+
+        res.status(200).json({ token });
+      });
     });
   });
 
