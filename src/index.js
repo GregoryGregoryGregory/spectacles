@@ -17,16 +17,17 @@ module.exports = (server, options) => {
       r.scardAsync('user'),
       r.scardAsync('guild'),
       r.scardAsync('channel'),
-      r.getAsync('me'),
+      r.hmgetallAsync('me'),
+      r.hmgetallAsync('presences'),
     ])
-    .then(([user, guild, channel, me]) => {
+    .then(([user, guild, channel, me, presences]) => {
       res.json({
         guildCount: guild,
         userCount: user,
         channelCount: channel,
         description: '',
-        me,
-        presences: [],
+        user: me,
+        presences,
         website: '',
         prefixes: [],
         oauth: '',
