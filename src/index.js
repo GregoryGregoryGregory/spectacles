@@ -1,4 +1,5 @@
 const express = require('express');
+const cors = require('cors');
 const socket = require('./socket');
 const redis = require('./util/redis');
 
@@ -6,6 +7,8 @@ module.exports = (server, options = {}) => {
   socket(server);
   const r = redis(options);
   const router = express.Router();
+
+  router.use(cors());
 
   router.get('/info', (req, res) => {
     Promise.all([
