@@ -2,12 +2,10 @@ version: '3'
 services:
   web:
     build: .
-    ports:
-      - 8080:8080
   nginx:
     image: nginx
     ports:
-      - 8080:80
+      - 80:8080
     volumes:
       - ./bin/nginx:/etc/nginx:ro
   redis:
