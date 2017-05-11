@@ -1,25 +1,28 @@
 {
-  "name": "t",
+  "name": "spectacles-api",
   "version": "0.1.0",
   "description": "A Discord bot REST API framework.",
   "main": "src/index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "mocha"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/some-plebs/t.git"
+    "url": "git+https://github.com/spec-tacles/api.git"
   },
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/some-plebs/t/issues"
+    "url": "https://github.com/spec-tacles/api/issues"
   },
-  "homepage": "https://github.com/some-plebs/t#readme",
+  "homepage": "https://github.com/spec-tacles/api#readme",
   "devDependencies": {
+    "body-parser": "^1.17.1",
     "eslint": "^3.19.0",
     "eslint-config-airbnb-base": "^11.1.3",
-    "eslint-plugin-import": "^2.2.0"
+    "eslint-plugin-import": "^2.2.0",
+    "mocha": "^3.3.0",
+    "supertest": "^3.0.0"
   },
   "dependencies": {
     "discord-oauth-api": "github:spec-tacles/discord-oauth-api",

@@ -2,7 +2,7 @@ const express = require('express');
 const socket = require('./socket');
 const redis = require('./redis');
 
-module.exports = (server, options) => {
+module.exports = (server, options = {}) => {
   socket(server);
   const r = redis(options);
   const router = express.Router();
@@ -17,8 +17,8 @@ module.exports = (server, options) => {
       r.scardAsync('user'),
       r.scardAsync('guild'),
       r.scardAsync('channel'),
-      r.hmgetallAsync('me'),
-      r.hmgetallAsync('presences'),
+      r.hgetallAsync('me'),
+      r.hgetallAsync('presences'),
     ])
     .then(([user, guild, channel, me, presences]) => {
       res.json({
@@ -27,7 +27,7 @@ module.exports = (server, options) => {
         channelCount: channel,
         description: '',
         user: me,
-        presences,
+        presences: Object.keys(presences).map((v, i) => presences[i]),
         website: '',
         prefixes: [],
         oauth: '',
