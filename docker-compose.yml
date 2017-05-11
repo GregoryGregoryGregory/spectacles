@@ -4,9 +4,13 @@ services:
     build: .
     depends_on:
       - redis
+    environment:
+      - VIRTUAL_HOST=localhost
   nginx:
-    image: nginx
+    image: jwilder/nginx-proxy
     ports:
       - 80:80
+    volumes:
+      - /var/run/docker.sock:/tmp/docker.sock:ro
   redis:
     image: redis
