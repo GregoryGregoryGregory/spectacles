@@ -1,13 +1,17 @@
 version: '3'
 services:
   web:
-    build: .
+    build:
+      context: .
+      dockerfile: dockerfiles/Web
     depends_on:
       - redis
     environment:
       - VIRTUAL_HOST=localhost
   nginx:
-    image: jwilder/nginx-proxy
+    build:
+      context: .
+      dockerfile: dockerfiles/Nginx
     ports:
       - 80:80
     volumes:
