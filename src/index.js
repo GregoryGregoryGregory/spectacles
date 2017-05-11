@@ -1,16 +1,11 @@
 const express = require('express');
 const socket = require('./socket');
-const redis = require('./redis');
+const redis = require('./util/redis');
 
 module.exports = (server, options = {}) => {
   socket(server);
   const r = redis(options);
   const router = express.Router();
-
-  router.use((req, res, next) => {
-    if (!req.app.get('config')) req.app.set('config', options);
-    next();
-  });
 
   router.get('/info', (req, res) => {
     Promise.all([
