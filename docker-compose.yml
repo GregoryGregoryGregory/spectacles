@@ -9,6 +9,6 @@ services:
     ports:
       - 8080:80
     volumes:
-      - bin/nginx:/etc/nginx:ro
+      - ./bin/nginx:/etc/nginx:ro
   redis:
     image: redis
