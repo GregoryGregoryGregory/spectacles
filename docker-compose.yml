@@ -10,7 +10,7 @@ services:
       - VIRTUAL_HOST=localhost
   nginx:
     build:
-      context: ./bin/nginx
+      context: .
       dockerfile: dockerfiles/Nginx
     ports:
       - 80:80
