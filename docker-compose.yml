@@ -1,9 +1,7 @@
 version: '3'
 services:
   web:
-    build:
-      context: .
-      dockerfile: dockerfiles/Web
+    build: .
     depends_on:
       - redis
     ports:
