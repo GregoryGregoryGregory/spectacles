@@ -10,7 +10,7 @@ module.exports = (server, options = {}) => {
 
   router.use(cors());
 
-  router.get('/info', (req, res) => {
+  router.get('/info', (req, res, next) => {
     Promise.all([
       r.scardAsync('user'),
       r.scardAsync('guild'),
@@ -31,7 +31,7 @@ module.exports = (server, options = {}) => {
         oauth: '',
         guild: '',
       });
-    });
+    }).catch(e => next(e));
   });
 
   return router;
