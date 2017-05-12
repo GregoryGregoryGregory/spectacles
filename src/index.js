@@ -25,7 +25,7 @@ module.exports = (server, options = {}) => {
         channelCount: channel,
         description: '',
         user: me,
-        presences: Object.keys(presences).map((v, i) => presences[i]),
+        presences: presences ? Object.keys(presences).map((v, i) => presences[i]) : [],
         website: '',
         prefixes: [],
         oauth: '',
