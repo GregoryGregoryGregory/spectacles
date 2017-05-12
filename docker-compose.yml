@@ -6,15 +6,15 @@ services:
       dockerfile: dockerfiles/Web
     depends_on:
       - redis
-    environment:
-      - VIRTUAL_HOST=localhost
-  nginx:
-    build:
-      context: .
-      dockerfile: dockerfiles/Nginx
     ports:
-      - 80:80
-    volumes:
-      - /var/run/docker.sock:/tmp/docker.sock:ro
+      - 80:8080
+  # nginx:
+  #   build:
+  #     context: .
+  #     dockerfile: dockerfiles/Nginx
+  #   ports:
+  #     - 80:80
+  #   volumes:
+  #     - /var/run/docker.sock:/tmp/docker.sock:ro
   redis:
     image: redis
