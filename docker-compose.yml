@@ -8,13 +8,5 @@ services:
       - redis
     ports:
       - 80:8080
-  # nginx:
-  #   build:
-  #     context: .
-  #     dockerfile: dockerfiles/Nginx
-  #   ports:
-  #     - 80:80
-  #   volumes:
-  #     - /var/run/docker.sock:/tmp/docker.sock:ro
   redis:
     image: redis
