@@ -12,4 +12,4 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 app.use(api(server));
 
-server.listen(8080);
+server.listen(8080, () => console.log('listening on port 8080')); // eslint-disable-line no-console
