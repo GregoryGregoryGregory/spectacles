@@ -12,9 +12,9 @@ module.exports = (server, options = {}) => {
 
   router.get('/info', (req, res, next) => {
     Promise.all([
-      r.scardAsync('user'),
-      r.scardAsync('guild'),
-      r.scardAsync('channel'),
+      r.scardAsync('users'),
+      r.scardAsync('guilds'),
+      r.scardAsync('channels'),
       r.hgetallAsync('me'),
       r.hgetallAsync('presences'),
     ])
