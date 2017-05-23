@@ -34,5 +34,11 @@ module.exports = (server, options = {}) => {
     }).catch(e => next(e));
   });
 
+  router.get('/', (req, res) => {
+    res.json({
+      message: 'Please specify endpoint.',
+    });
+  });
+
   return router;
 };
