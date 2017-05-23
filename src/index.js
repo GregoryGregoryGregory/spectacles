@@ -3,12 +3,23 @@ const cors = require('cors');
 const socket = require('./socket');
 const redis = require('./util/redis');
 
+/**
+ * Spectacles REST Server
+ * @param {ws.Server} server
+ * @param {object} options
+ */
 module.exports = (server, options = {}) => {
   socket(server);
   const r = redis(options);
   const router = express.Router();
 
   router.use(cors());
+
+  /**
+   * @TODO Move routers to own folder. -Nomsy
+   * @TODO Add controllers for external handlers. -Nomsy
+   * @TODO Add new information written in discord.js-redis (soon) -Nomsy
+   */
 
   router.get('/info', (req, res, next) => {
     Promise.all([

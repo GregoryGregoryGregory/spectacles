@@ -3,7 +3,9 @@ const tsubaki = require('tsubaki');
 
 tsubaki.promisifyAll(redis.RedisClient.prototype);
 tsubaki.promisifyAll(redis.Multi.prototype);
-
+/**
+ * @TODO Make disconnect/reconnect an event not a strategy.
+ */
 module.exports = options => redis.createClient(Object.assign(options, {
   retry_strategy: ({ total_retry_time: time, attempt }) => {
     if (time > 1000 * 60 * 60) return new Error('Retry time exhausted.');
