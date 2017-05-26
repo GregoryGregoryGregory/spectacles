@@ -45,6 +45,17 @@ module.exports = (server, options = {}) => {
     }).catch(e => next(e));
   });
 
+  router.get('/commands', (req, res, next) => {
+    redis.scanRecursive(0, 'commands:*')
+      .then((cmds) => {
+        const q = r.multi();
+        cmds.forEach(c => q.hgetall(c));
+        return q.exec();
+      })
+      .then(cmds => res.json(cmds))
+      .catch(next);
+  });
+
   router.get('/', (req, res) => {
     res.json({
       message: 'Please specify endpoint.',
