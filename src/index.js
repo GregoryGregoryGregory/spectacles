@@ -56,7 +56,6 @@ module.exports = (server, options = {}) => {
         const out = {};
         cmds.forEach((c) => {
           out[c.name] = c;
-          delete out[c.name].name;
         });
         return res.json(out);
       })
