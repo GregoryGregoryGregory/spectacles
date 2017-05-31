@@ -16,7 +16,7 @@ module.exports = (options) => {
   }));
 
   client.scanRecursive = (cursor = 0, match, count, old = []) =>
-    client.scanAsync(...[cursor, match, count].filter(e => e)).then(([newCursor, elements]) => {
+    client.scanAsync(...[cursor, match, count].filter(e => typeof e !== 'undefined')).then(([newCursor, elements]) => {
       const data = old.concat(elements);
       if (newCursor === 0) return data;
       return client.scanRecursive(newCursor, match, count, data);
