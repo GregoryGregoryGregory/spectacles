@@ -46,7 +46,8 @@ module.exports = (server, options = {}) => {
   });
 
   router.get('/commands', (req, res, next) => {
-    redis.scanRecursive(0, 'commands:*')
+    console.log(r);
+    r.scanRecursive(0, 'commands:*')
       .then((cmds) => {
         const q = r.multi();
         cmds.forEach(c => q.hgetall(c));

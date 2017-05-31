@@ -15,13 +15,12 @@ module.exports = (options) => {
     },
   }));
 
-  client.scanRecursive = (cursor = 0, match, count, old = []) => {
+  client.scanRecursive = (cursor = 0, match, count, old = []) =>
     client.scanAsync(cursor, match, count).then(([newCursor, elements]) => {
       const data = old.concat(elements);
       if (newCursor === 0) return data;
       return client.scanRecursive(newCursor, match, count, data);
     });
-  };
 
   return client;
 };
