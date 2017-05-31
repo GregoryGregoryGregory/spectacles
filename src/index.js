@@ -46,7 +46,6 @@ module.exports = (server, options = {}) => {
   });
 
   router.get('/commands', (req, res, next) => {
-    console.log(r);
     r.scanRecursive(0, 'commands:*')
       .then((cmds) => {
         const q = r.multi();
