@@ -52,7 +52,14 @@ module.exports = (server, options = {}) => {
         cmds.forEach(c => q.hgetall(c));
         return q.exec();
       })
-      .then(cmds => res.json(cmds))
+      .then((cmds) => {
+        const out = {};
+        cmds.forEach((c) => {
+          out[c.name] = c;
+          delete out[c.name].name;
+        });
+        return res.json(out);
+      })
       .catch(next);
   });
 
